@@ -30,14 +30,31 @@ export function Home() {
 
   async function loadData() {
     const dataKey = '@savepass:logins';
+    try {
+      const data = await AsyncStorage.getItem(dataKey)
+      if(data){
+        const dataFormat = JSON.parse(data) as LoginListDataProps;
+        setSearchListData(dataFormat);
+        setData(dataFormat)
+      }
+    } catch (error) {
+        console.log(error)
+    }
     // Get asyncStorage data, use setSearchListData and setData
   }
 
   function handleFilterLoginData() {
+    if(searchText !== ''){
+     const filterSearch = data.filter(({service_name}) => service_name.toLowerCase().includes(searchText.toLocaleLowerCase()))
+     setSearchListData(filterSearch)
+    }else {
+      setSearchListData(data)
+    }
     // Filter results inside data, save with setSearchListData
   }
 
   function handleChangeInputText(text: string) {
+    setSearchText(text)
     // Update searchText value
   }
 

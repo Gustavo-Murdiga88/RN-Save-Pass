@@ -13,7 +13,7 @@ import {
 } from './styles';
 
 interface Props extends TextInputProps {
-  control: Control;
+  control: Control<any, any>;
   name: string;
   title: string;
   error: string;
@@ -32,7 +32,7 @@ export function Input({
   return (
     <Container>
       <Label>{title}</Label>
-      {error && <Error>{error}</Error>}
+      {!!error && <Error>{error}</Error>}
       <Controller
         name={name}
         control={control}
